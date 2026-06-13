@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="floating-hearts" id="hearts"></div>
+
+    <audio id="bgMusic" loop>
+        <source src="music/You Are My Everything - Calloway (REYNE COVER).mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="intro">
+        <div class="envelope-container">
+            <div class="envelope" id="envelope">
+                <div class="flap"></div>
+                <div class="body"></div>
+                
+                <div class="letter" id="letter">
+                    <p>I love you ❤️</p>
+                </div>
+                
+                <div class="heart-seal">❤️</div>
+            </div>
+            <p class="open-text" id="openText">Tap the envelope, Bebe 💌</p>
+        </div>
+    </div>
+
+    <div id="content">
+        <section class="hero">
+            <h1 class="title-animate">Happy Anniversary Bebe ❤️</h1>
+            <p class="subtitle">
+                Every picture tells a story, and every story reminds me how much I love you. 💖
+            </p>
+        </section>
+
+        <div class="gallery-container">
+            <div class="progress-dots" id="progressDots"></div>
+
+            <div class="memory-card" id="memoryCard">
+                <div class="image-wrapper">
+                    <img id="slideImage" src="images/1.jpg" alt="Our Memory">
+                    <div class="image-glow"></div>
+                </div>
+
+                <div class="message-box">
+                    <p id="memoryMessage"></p>
+                </div>
+
+                <button class="nav-arrow prev" id="prevBtn" aria-label="Previous">
+                    <span>‹</span>
+                </button>
+                <button class="nav-arrow next" id="nextBtn" aria-label="Next">
+                    <span>›</span>
+                </button>
+            </div>
+
+            <p class="swipe-hint">← Swipe or tap arrows →</p>
+
+            <a href="message.html" class="btn" id="messageBtn">
+                <span class="btn-text">Read My Message ❤️</span>
+                <span class="btn-sparkle">✨</span>
+            </a>
+        </div>
+    </div>
+
+    <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">
+        🔇
+    </button>
+
+    <div class="music-player-display" id="musicDisplay">
+        <span class="music-icon">🎵</span>
+        <div class="track-info">
+            <span class="track-status">Now Playing</span>
+            <span class="track-title">You Are My Everything</span>
+            <span class="track-artist">Calloway (REYNE Cover)</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Message For You ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="floating-hearts" id="hearts"></div>
+
+    <audio id="bgMusic" loop>
+        <source src="music/Rainbow - South Border (REYNE COVER).mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="letter-page">
+        <div class="special-slideshow" id="specialSlideshow">
+            <img src="images/special1.jpg" alt="Us" class="slide active">
+            <img src="images/special2.jpg" alt="Us" class="slide">
+            <img src="images/special3.jpg" alt="Us" class="slide">
+        </div>
+
+        <div class="letter-box">
+        <h1>For You, Bebe ❤️</h1>
+
+        <p>
+            Happy Anniversary, Bebe. ❤️
+        </p>
+
+        <p>
+            Thank you for staying with me through all the happy moments, the challenges,
+            the misunderstandings, and even the times when we both got hurt. Hindi man
+            naging perfect ang journey natin, isa ka sa pinakamagandang nangyari sa buhay ko.
+        </p>
+
+        <p>
+            Alam kong marami akong pagkukulang at may mga pagkakataong hindi kita
+            naintindihan agad o hindi kita na-assure nang maayos. I'm sorry for those moments,
+            bebe. Hindi ko mababago ang mga nangyari, pero gusto kong malaman mo na araw-araw
+            akong natututo at nag-e-effort para maging mas mabuting partner para sayo.
+        </p>
+
+        <p>
+            I may not be perfect, but I promise to always choose you, listen to you,
+            understand you, and stay by your side through every season of our lives.
+            Gagawin ko ang lahat para iparamdam sayo kung gaano kita kamahal at kung gaano
+            ka kahalaga sa akin.
+        </p>
+
+        <p>
+            Thank you for your patience, your love, and for never giving up on us.
+            Ikaw ang peace ko, comfort ko, at ang paborito kong tao sa buong mundo. ❤️
+        </p>
+
+        <h2>Happy Anniversary, Bebe ❤️</h2>
+        <p><i>I love you today, tomorrow, and every day after that.</i></p>
+
+
+
+        <a href="index.html" class="back-btn">
+            ← Go Back
+        </a>
+    </div>
+
+    <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">🔊</button>
+
+    <div class="music-player-display" id="musicDisplay">
+        <span class="music-icon">🎵</span>
+        <div class="track-info">
+            <span class="track-status">Now Playing</span>
+            <span class="track-title">You Are My Everything</span>
+            <span class="track-artist">Calloway (REYNE Cover)</span>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 1. AUDIO & TRACK DISPLAY LOGIC ---
+        const bgMusic = document.getElementById('bgMusic');
+        const soundToggle = document.getElementById('soundToggle');
+        const musicDisplay = document.getElementById('musicDisplay');
+        let isMusicPlaying = false;
+
+        if (bgMusic) {
+            bgMusic.volume = 0.3; // Comfort volume
+            
+            // Try playing immediately (works if browser session carries over interaction)
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    handleAudioSuccess();
+                }).catch(() => {
+                    // Autoplay blocked by browser. Wait for user gesture on the page.
+                    soundToggle.textContent = '🔇';
+                    const startAudioOnGesture = () => {
+                        bgMusic.play().then(() => {
+                            handleAudioSuccess();
+                            document.removeEventListener('click', startAudioOnGesture);
+                        }).catch(e => console.log("Audio activation error:", e));
+                    };
+                    document.addEventListener('click', startAudioOnGesture);
+                });
+            }
+        }
+
+        function handleAudioSuccess() {
+            isMusicPlaying = true;
+            soundToggle.textContent = '🔊';
+            if (musicDisplay) {
+                musicDisplay.classList.add('show');
+                // Hide notification after 5 seconds
+                setTimeout(() => {
+                    musicDisplay.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        // Toggle button action
+        if (soundToggle) {
+            soundToggle.addEventListener('click', (e) => {
+                e.stopPropagation(); // Stop general document click trigger
+                if (isMusicPlaying) {
+                    bgMusic.pause();
+                    isMusicPlaying = false;
+                    soundToggle.textContent = '🔇';
+                } else {
+                    bgMusic.play().then(() => {
+                        handleAudioSuccess();
+                    });
+                }
+            });
+        }
+
+        // --- 2. SLIDESHOW LOGIC (Every 5 seconds) ---
+        const slideshow = document.getElementById('specialSlideshow');
+        if (slideshow) {
+            const slides = slideshow.querySelectorAll('.slide');
+            let currentSlideIndex = 0;
+            const intervalTime = 5000;
+
+            if (slides.length > 1) {
+                setInterval(() => {
+                    slides[currentSlideIndex].classList.remove('active');
+                    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                    slides[currentSlideIndex].classList.add('active');
+                }, intervalTime);
+            }
+        }
+
+        // --- 3. FLOATING HEARTS GENERATOR ---
+        const heartsContainer = document.getElementById('hearts');
+        if (heartsContainer) {
+            const heartIcons = ['❤️', '💕', '💗', '💖', '✨', '🌸'];
+            const createHeart = () => {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+                heart.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+                heartsContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 10000);
+            };
+
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createHeart, i * 300);
+            }
+            setInterval(createHeart, 1000);
+        }
+    });
+    </script>
+</body>
+</html>
